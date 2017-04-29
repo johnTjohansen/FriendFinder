@@ -1,10 +1,15 @@
-// A GET Route to /survey which should display the survey page.
-app.get("/survey", function(req, req) {
-	res.sendFile(path.join(__dirname, "survey.html"))
-})
-// A default USE route that leads to home.html which displays
-// the home page.
+var path = require("path");
 
-app.get("/", function(req, req) {
-	res.sendFile(path.join(__dirname, "home.html"))
-})
+module.exports = function(app) {
+
+    // GET route for /survey returns survey.html.
+    app.get("/survey", function(req, res) {
+        res.sendFile(path.join(__dirname + "/../public/survey.html"));
+    });
+
+    // USE route returns home.html for any undefined GET routes.
+    app.use(function (req, res) {
+        res.sendFile(path.join(__dirname + "/../public/home.html"));
+    });
+
+};
